@@ -1,5 +1,6 @@
 class PinsController < ApplicationController
 	before_action :find_pin, only: [:edit, :update, :show, :destroy]
+	before_action :authenticate_user!
 	def index
 		@pins = Pin.all.order('created_at DESC')
 	end
@@ -40,7 +41,7 @@ class PinsController < ApplicationController
 
 	private
 		def pin_params
-			params.require(:pin).permit(:title, :description)
+			params.require(:pin).permit(:title, :description, :image)
 		end
 
 		def find_pin
